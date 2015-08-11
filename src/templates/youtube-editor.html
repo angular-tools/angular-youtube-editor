@@ -1,0 +1,87 @@
+<script src="https://www.youtube.com/player_api"></script>
+
+<div>
+    <h3 class="title">Video Editor</h3>
+
+    <div style="position: relative" id="playerHolder" ng-style="{width:playerWidth}">
+        <div id="startLine" class="dragger" ng-style="{left:(startLine || 1), height: playerHeight }" title="Start time" ng-show="loaded">
+            <i class="fa fa-caret-down fa-inverse fa-2x fa-fw edit-caret-top"></i>
+            <i class="fa fa-caret-up fa-inverse fa-2x fa-fw edit-caret-bottom"></i>
+        </div>
+
+        <div id="endLine" class="dragger" ng-style="{left:(endLine || 1), height: playerHeight }" title="End time" ng-show="loaded">
+            <i class="fa fa-caret-down fa-inverse fa-2x fa-fw edit-caret-top"></i>
+            <i class="fa fa-caret-up fa-inverse fa-2x fa-fw edit-caret-bottom"></i>
+        </div>
+
+        <div id="YTPlayer"></div>
+
+        <div class="all-client" style="position: absolute; top: 0; left: 0; background: rgba(255, 255, 255, 0.2)" ng-show="dragging">&nbsp;</div>
+    </div>
+
+    <div class="panel panel-default" ng-style="{width:playerWidth}">
+        <div class="panel-heading">
+            <h3 class="panel-title">Video settings</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>Start time: </label>
+
+                    <div class="input-group">
+                        <input type="number" ng-model="video.startTime" min="0" max="{{(video.duration||9999)-1}}" class="form-control" placeholder="seconds">
+
+                        <div class="input-group-addon" data-toggle="tooltip" title="Use current time as start time" ng-click="video.startTime = currentTime"><i class="fa fa-clock-o"></i></div>
+                    </div>
+                </div>
+
+                &nbsp;&nbsp;
+
+                <div class="form-group">
+                    <label>End time: </label>
+
+                    <div class="input-group">
+                        <input type="number" ng-model="video.endTime" min="{{video.startTime+1}}" max="{{(video.duration||9999)}}" class="form-control" placeholder="seconds">
+
+                        <div class="input-group-addon" data-toggle="tooltip" title="Use current time as end time" ng-click="video.endTime = currentTime"><i class="fa fa-clock-o"></i></div>
+                    </div>
+                </div>
+
+                &nbsp;&nbsp;
+
+                <div class="form-group">
+                    <label>Volume: </label>
+
+                    <div class="input-group">
+                        <input type="number" ng-model="video.volume" min="0" max="100" class="form-control" placeholder="Volume">
+
+                        <div class="input-group-addon">%</div>
+                    </div>
+                </div>
+
+                &nbsp;&nbsp;
+
+                <button type="submit" class="btn btn-primary" ng-click="save()"><i class="fa fa-check-circle"></i> Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .edit-caret-top {
+        position: absolute;
+        top: -12px;
+        left: -21px;
+    }
+
+    .edit-caret-bottom {
+        position: absolute;
+        bottom: -12px;
+        left: -21px;
+    }
+
+    .dragger {
+        position: absolute;
+        border-left: 2px solid white;
+    }
+</style>
