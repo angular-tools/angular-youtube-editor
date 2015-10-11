@@ -1,16 +1,13 @@
 (function () {
     'use strict';
 
-    var scripts = document.getElementsByTagName("script");
-    var currentScriptPath = scripts[scripts.length - 1].src;
-
     angular.module('youtubeEditor', ['ngDialog'])
         .factory('$youtubeEditor', ['ngDialog', '$timeout', '$notice', '$q', function ($dialog, $timeout, $notice, $q) {
             var youtubeEditor = {};
 
             youtubeEditor.show = function (videoURL, startTime, endTime, volume, cb) {
                 $dialog.open({
-                    template: currentScriptPath.substring(0, currentScriptPath.lastIndexOf('/') + 1) + '../templates/youtube-editor.html',
+                    template: '/static/bower_components/angular-youtube-editor/src/templates/youtube-editor.html',
                     controller: ['$scope', function ($scope) {
                         $scope.init = function () {
                             $scope.videoURL = videoURL || 'https://www.youtube.com/watch?v=QcIy9NiNbmo';
